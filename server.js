@@ -22,9 +22,9 @@ app.post("/create_preference", (req, res) => {
 			quantity: Number(req.body.quantity),
 		}],
 		back_urls: {
-			"success": "http://localhost:8080/feedback",
-			"failure": "http://localhost:8080/feedback",
-			"pending": "http://localhost:8080/feedback"
+			"success": "https://enigmatic-basin-93479.herokuapp.com//feedback",
+			"failure": "https://enigmatic-basin-93479.herokuapp.com//feedback",
+			"pending": "https://enigmatic-basin-93479.herokuapp.com//feedback"
 		},
 		auto_return: 'approved',
 	};

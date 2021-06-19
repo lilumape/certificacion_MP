@@ -3,7 +3,7 @@ const app = express();
 const mercadopago = require("mercadopago");
 
 //REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
-mercadopago.configurations.setAccessToken("APP_USR-4975591342260223-061918-f52a0ce0982d8760c3633985525d1a2e-84273820"); 
+mercadopago.configurations.setAccessToken("TEST-7196843313941943-061921-02dbb39a7b00ad368e0d0a72282a2ab8-778307235"); 
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -32,6 +32,7 @@ app.post("/create_preference", (req, res) => {
 	mercadopago.preferences.create(preference)
 		.then(function (response) {
 			res.json({id :response.body.id})
+			global.id = response.body.id;
 		}).catch(function (error) {
 			console.log(error);
 		});

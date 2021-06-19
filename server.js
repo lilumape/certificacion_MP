@@ -22,9 +22,9 @@ app.post("/create_preference", (req, res) => {
 			quantity: Number(req.body.quantity),
 		}],
 		back_urls: {
-			"success": "https://enigmatic-basin-93479.herokuapp.com/feedback",
-			"failure": "https://enigmatic-basin-93479.herokuapp.com/feedback",
-			"pending": "https://enigmatic-basin-93479.herokuapp.com/feedback"
+			"success": "https://enigmatic-basin-93479.herokuapp.com/webhook",
+			"failure": "https://enigmatic-basin-93479.herokuapp.com/webhook",
+			"pending": "https://enigmatic-basin-93479.herokuapp.com/webhook"
 		},
 		auto_return: 'approved',
 	};
@@ -39,12 +39,8 @@ app.post("/create_preference", (req, res) => {
 		});
 });
 
-app.get('/feedback', function(request, response) {
-	 response.json({
-		Payment: request.query.payment_id,
-		Status: request.query.status,
-		MerchantOrder: request.query.merchant_order_id
-	})
+app.get('/webhook', function(request, response) {
+	 response.json(request.query)
 });
 
 

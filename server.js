@@ -33,6 +33,7 @@ app.post("/create_preference", (req, res) => {
 		.then(function (response) {
 			res.json({id :response.body.id})
 			global.id = response.body.id;
+			console.log(response.body.id)
 		}).catch(function (error) {
 			console.log(error);
 		});

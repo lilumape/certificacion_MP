@@ -35,7 +35,7 @@ app.post("/create_preference", (req, res) => {
 		},
 		auto_return: 'approved',
 		external_reference:"lilumape@hotmail.com",
-		notification_url: "https://enigmatic-basin-93479.herokuapp.com/webhook",
+		notification_url: "https://enigmatic-basin-93479.herokuapp.com/webhook?source_news=webhooks",
 		payment_methods: {
 		installments:6,
 		excluded_payment_methods: [

@@ -100,7 +100,10 @@ app.get('/pending', function(request, response) {
 
 app.post('/webhook', function(request, response) {
 	 console.log(request.query)
+	 response.json("200")
 });
+
+
 
 var port = process.env.PORT || 3000;
 app.listen(port, () => {

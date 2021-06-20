@@ -35,8 +35,9 @@ app.post("/create_preference", (req, res) => {
 		},
 		auto_return: 'approved',
 		external_reference:"lilumape@hotmail.com",
-		installments:6,
 		notification_url: "https://enigmatic-basin-93479.herokuapp.com/webhook",
+		payment_methods: {
+		installments:6,
 		excluded_payment_methods: [
 		  { item:"amex"
 			}
@@ -44,9 +45,10 @@ app.post("/create_preference", (req, res) => {
 		excluded_payment_types: [
 		   { item:"atm"
 			}
-		],
+		]},
 		payer:{
-			name: "Lalo Landa",
+			name: "Lalo",
+			surname: "Landa",
 			email: "test_user_83958037@testuser.com",
 			
 			phone:{

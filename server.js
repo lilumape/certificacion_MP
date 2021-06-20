@@ -29,9 +29,9 @@ app.post("/create_preference", (req, res) => {
 			picture_url: req.body.urlImage
 		}],
 		back_urls: {
-			"success": "http://localhost:3000/success",
-			"failure": "http://localhost:3000/failure",
-			"pending": "http://localhost:3000/pending"
+			"success": "https://enigmatic-basin-93479.herokuapp.com/success",
+			"failure": "https://enigmatic-basin-93479.herokuapp.com/failure",
+			"pending": "https://enigmatic-basin-93479.herokuapp.com/pending"
 		},
 		auto_return: 'approved',
 		external_reference:"lilumape@hotmail.com",

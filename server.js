@@ -23,9 +23,7 @@ app.post("/create_preference", (req, res) => {
 		items: [{
 			title: req.body.description,
 			unit_price: Number(req.body.price),
-			quantity: Number(req.body.quantity),
-			auto_return:"https://enigmatic-basin-93479.herokuapp.com/",
-			external_reference:"12334"
+			quantity: Number(req.body.quantity)
 		}],
 		back_urls: {
 			"success": "https://enigmatic-basin-93479.herokuapp.com/webhook",
@@ -33,6 +31,7 @@ app.post("/create_preference", (req, res) => {
 			"pending": "https://enigmatic-basin-93479.herokuapp.com/webhook"
 		},
 		auto_return: 'approved',
+		external_reference:"12334"
 	};
 
 	mercadopago.preferences.create(preference)

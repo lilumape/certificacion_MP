@@ -39,11 +39,11 @@ app.post("/create_preference", (req, res) => {
 		payment_methods: {
 		installments:6,
 		excluded_payment_methods: [
-		  { item:"amex"
+		  { id:"amex"
 			}
 		],
 		excluded_payment_types: [
-		   { item:"atm"
+		   { id:"atm"
 			}
 		]},
 		payer:{

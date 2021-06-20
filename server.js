@@ -101,9 +101,9 @@ app.get('/pending', function(request, response) {
 });
 
 app.post('/webhook', function(request, response) {
-	 console.log("Notification en webhook"+request)
-	 console.log("Notification en webhook"+request.query)
-	 console.log("Notification en webhook"+response.query)
+	 console.log(request)
+	 console.log(request.query)
+	 console.log(response.query)
 	 response.json("200")
 });
 

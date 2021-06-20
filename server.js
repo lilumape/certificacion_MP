@@ -47,8 +47,7 @@ app.post("/create_preference", (req, res) => {
 		   { id:"atm"
 			}
 		],
-		default_payment_method_id: "",
-   	    default_installments: ""
+		default_payment_method_id: ""
 		},
 		payer:{
 			name: "Lalo",

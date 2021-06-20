@@ -36,7 +36,7 @@ app.post("/create_preference", (req, res) => {
 		auto_return: 'approved',
 		external_reference:"lilumape@hotmail.com",
 		installments:6,
-		notification_url: "https://enigmatic-basin-93479.herokuapp.com/webhook/",
+		notification_url: "https://enigmatic-basin-93479.herokuapp.com/webhook",
 		excluded_payment_methods: [
 		  { item:"amex"
 			}
@@ -98,7 +98,7 @@ app.get('/pending', function(request, response) {
 	 response.json({response: "Pending"})
 });
 
-app.post('/webhook/', function(request, response) {
+app.post('/webhook', function(request, response) {
 	 console.log(request.query)
 });
 

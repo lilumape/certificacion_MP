@@ -3,10 +3,10 @@ const app = express();
 const mercadopago = require("mercadopago");
 
 //REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
-mercadopago.configurations.setAccessToken("APP_USR-7196843313941943-061921-bf6e8b7041f4452a6a4566018427e672-778307235"); 
 
 mercadopago.configure({
-  access_token: 'APP_USR-7196843313941943-061921-bf6e8b7041f4452a6a4566018427e672-778307235'
+  access_token: 'APP_USR-2572771298846850-120119-a50dbddca35ac9b7e15118d47b111b5a-681067803',
+   integrator_id: 'dev_24c65fb163bf11ea96500242ac130004'
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -21,33 +21,86 @@ app.post("/create_preference", (req, res) => {
 
 	let preference = {
 		items: [{
-			title: req.body.description,
+			id: "1234",
+			title: req.body.title,
+			description: req.body.description,
 			unit_price: Number(req.body.price),
-			quantity: Number(req.body.quantity)
+			quantity: 1,
+			picture_url: req.body.urlImage
 		}],
 		back_urls: {
-			"success": "https://enigmatic-basin-93479.herokuapp.com/webhook",
-			"failure": "https://enigmatic-basin-93479.herokuapp.com/webhook",
-			"pending": "https://enigmatic-basin-93479.herokuapp.com/webhook"
+			"success": "http://localhost:3000/success",
+			"failure": "http://localhost:3000/failure",
+			"pending": "http://localhost:3000/pending"
 		},
 		auto_return: 'approved',
-		external_reference:"12334"
+		external_reference:"lilumape@hotmail.com",
+		installments:6,
+		notification_url: "https://enigmatic-basin-93479.herokuapp.com/webhook/",
+		excluded_payment_methods: [
+		  { item:"amex"
+			}
+		],
+		excluded_payment_types: [
+		   { item:"atm"
+			}
+		],
+		payer:{
+			name: "Lalo Landa",
+			email: "test_user_83958037@testuser.com",
+			
+			phone:{
+			area_code:"52",
+			number:5549737300
+			},
+			
+			address:{
+				street_name:"Insurgentes Sur",
+				street_number: 1602,
+				zip_code: "03940"
+			}
+		}
 	};
 
 	mercadopago.preferences.create(preference)
 		.then(function (response) {
-			res.json({id :response.body.id})
-			global.id = response.body.id;
 			console.log(response.body.id)
+			
+				mercadopago.preferences.get(response.body.id).then(function (response) {
+			res.json({id: response.body.id, point: response.body.init_point})
 		}).catch(function (error) {
-			console.log(error);
+			console.log("Error al get: "+error);
+	
 		});
+		}).catch(function (error) {
+			console.log("Error al crear la preferencia: "+error);
+			res.json({error: error})
+		});
+		
+	
+		
+		
+		
 });
 
-app.get('/webhook', function(request, response) {
-	 response.json(request.query)
+app.get('/failure', function(request, response) {
+	 response.json({response: "Failed"})
 });
 
+app.get('/success', function(request, response) {
+	 response.json({payment_method_id:request.query.payment_type, 
+				external_reference:request.query.external_reference,
+				payment_id: request.query.payment_id
+				})
+});
+
+app.get('/pending', function(request, response) {
+	 response.json({response: "Pending"})
+});
+
+app.post('/webhook/', function(request, response) {
+	 console.log(request.query)
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port, () => {

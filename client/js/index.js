@@ -6,7 +6,9 @@ document.getElementById("checkout-btn").addEventListener("click", function() {
   var orderData = {
     quantity: document.getElementById("quantity").value,
     description: document.getElementById("product-description").innerHTML,
-    price: document.getElementById("unit-price").innerHTML
+    price: document.getElementById("unit-price").innerHTML,
+	title: document.getElementById("product-title").innerHTML,
+	urlImage: "https://enigmatic-basin-93479.herokuapp.com/img/product.png"
   };
     
   fetch("/create_preference", {
@@ -20,7 +22,8 @@ document.getElementById("checkout-btn").addEventListener("click", function() {
           return response.json();
       })
       .then(function(preference) {
-          createCheckoutButton(preference.id);
+		  console.log(preference)
+          createCheckoutButton(preference.id, preference.point);
           $(".shopping-cart").fadeOut(500);
           setTimeout(() => {
               $(".container_payment").show(500).fadeIn();
@@ -33,16 +36,35 @@ document.getElementById("checkout-btn").addEventListener("click", function() {
 });
 
 //Create preference when click on checkout button
-function createCheckoutButton(preference) {
-  var script = document.createElement("script");
-  
+function createCheckoutButton(preference, point) {
+	
+  var link = document.getElementById("init_point");
+  link.setAttribute("href", point);
+ /* var script = document.createElement("script");
+  console.log(preference)
   // The source domain must be completed according to the site for which you are integrating.
   // For example: for Argentina ".com.ar" or for Brazil ".com.br".
-  script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
+  script.src = "https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js";
   script.type = "text/javascript";
   script.dataset.preferenceId = preference;
   document.getElementById("button-checkout").innerHTML = "";
-  document.querySelector("#button-checkout").appendChild(script);
+  document.querySelector("#button-checkout").appendChild(script);*/
+  // Agrega credenciales de SDK
+  const mp = new MercadoPago('APP_USR-a98b17ae-47a6-4a35-b92d-01919002b97e', {
+        locale: 'es-CO'
+  });
+
+  // Inicializa el checkout
+  mp.checkout({
+      preference: {
+          id: preference
+      },
+	  // autoOpen: true
+      /*render: {
+            container: '.button-checkout', // Indica dónde se mostrará el botón de pago
+            label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+      }*/
+});
 }
 
 //Handle price update

@@ -3,7 +3,11 @@ const app = express();
 const mercadopago = require("mercadopago");
 
 //REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
-mercadopago.configurations.setAccessToken("TEST-7196843313941943-061921-02dbb39a7b00ad368e0d0a72282a2ab8-778307235"); 
+mercadopago.configurations.setAccessToken("APP_USR-7196843313941943-061921-bf6e8b7041f4452a6a4566018427e672-778307235"); 
+
+mercadopago.configure({
+  access_token: 'APP_USR-7196843313941943-061921-bf6e8b7041f4452a6a4566018427e672-778307235'
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -20,6 +24,8 @@ app.post("/create_preference", (req, res) => {
 			title: req.body.description,
 			unit_price: Number(req.body.price),
 			quantity: Number(req.body.quantity),
+			auto_return:"https://enigmatic-basin-93479.herokuapp.com/",
+			external_reference:"12334"
 		}],
 		back_urls: {
 			"success": "https://enigmatic-basin-93479.herokuapp.com/webhook",
